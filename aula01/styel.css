@@ -1,0 +1,32 @@
+nav{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+}
+div{
+    height: 50px;
+    border-radius: 15px;
+    background-color: black;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    
+}
+a{
+    text-decoration: none;
+    color: red;
+}
+div:hover{
+    background-color: rgb(255, 5, 5);
+    border: 1PX solid black;
+}
+a:hover{
+    color: black;
+}
+p{
+    font-size: larger;
+    font-family: monospace;
+    color: black;
+    font-weight: 900;
+}
