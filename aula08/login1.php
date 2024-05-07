@@ -11,75 +11,62 @@
 
     <?php
 
+    session_start();
+    echo session_id();
+    echo "br";
 
+    
+    function exibirFormulario()
+    {
+        echo "<form action=\"\" method=\"POST\">";
+        echo "<label for=\"text\"><br>Usuario: </label>";
+        echo "<input type=\"text\" name=\"usu\">";
+        echo "<br>";
+        echo "<label for=\"text\"><br>Senha: </label>";
+        echo "<input type=\"text\" name=\"senha\">";
+        echo "<br>";
+        echo "<button type=\"submit\">Enviar</button>";
+        echo "</form>";
+    }
 
-function ($exibirFormulario){
-echo "<form action=\"\" method=\"POST\">";
-echo "<label for=\"text\"><br>usuario: </label>";
-echo "<input type=\"text\" name=\"usu\">";
+    $usuarios = [
+        ["usu" => "miggas", "nome" => "miguel", "senha" => "123"],
+        ["usu" => "gdc1000", "nome" => "danilo", "senha" => "abc"],
+        ["usu" => "xorza", "nome" => "gabriel", "senha" => "123jf@"],
+    ];
 
-echo "<form action=\"\" method=\"POST\">";
-echo "<label for=\"text\"><br>Senha: </label>";
-echo "<input type=\"text\" name=\"senha\">";
-echo "<br>";
-echo "<button type=\"submit\">Enviar</button>";
-echo "</form>";
-};
+    
 
-
-
-$usuarios = [
-    ["usu" => "miggas", "nome" => "miguel" , "senha" => "123"],
-    ["usu" => "gdc1000", "nome" => "danilo" , "senha" => "abc"],
-    ["usu" => "xorza", "nome" => "gabriel" , "senha" => "123jf@"],
-];
-
-    if ($_SERVER ["REQUEST_METHOD"] == "POST") {
-        $usuarioInput = $_POST['usu'];
-        $senhaInput = $_POST['senha'];
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $usuarioInput = $_POST['usu'] ?? null;
+        $senhaInput = $_POST['senha'] ?? null;
         $usuarioValido = false;
 
-
-
-       if(is_null($usuario) && is_null($senha)){
-        echo "fazer Login";
-        include_once "form-login.php";
-       }else{
-        if(verUsuarios($usuario, $senha)){
-            echo "--fazendo login";
-            echo "<br> Bem vindo...";
-        }else{
-            echo "-- tente Novamente";
-            incluce_once "form-login.php";
+        foreach ($usuarios as $usuario) {
+            if ($usuario['usu'] == $usuarioInput && $usuario['senha'] == $senhaInput) {
+                $usuarioValido = true;
+                $nome = $usuario['nome'];
+                break;
+            }
         }
-       }
 
-
-    foreach($usuarios as $usuario){
-        if($usuario['usu'] == $usuarioInput && $usuario['senha'] == $senhaInput){
-            $usuarioValido = true;
-            $nome= $usuario['usu'];
-            $exibirFormulario = false;
-            break;
-        }else{
-            $login = false;
-            break;
+        if ($usuarioValido) {
+            echo "Sucesso no login, Bem vindo " . $nome . "!";
+        }else if($usuarioInput == null || $senhaInput == null){
+            echo "Digite as informações!";
+            exibirFormulario();
+        } else {
+            echo "Login não encontrado!";
+            exibirFormulario();
         }
-        
-    }
-    
-    if($usuarioValido == true){
-        echo "Sucesso no login, Bem vindo " . $nome;
-        $login = true;
-    }else{
-        echo "Login não encontrado!";
-        
+    } else {
+        echo "Fazer Login";
+        exibirFormulario();
     }
 
-} 
 
 
-?>
+    ?>
 
 </body>
 
