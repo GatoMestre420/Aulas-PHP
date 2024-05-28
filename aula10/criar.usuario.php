@@ -13,7 +13,7 @@
     <?php 
     
         require_once "banco.php";
-    
+
         $u = $_POST["usuario"] ?? null;
         $s = $_POST["senha"] ?? null;
 
@@ -33,6 +33,7 @@
 
                 // echo "<br>" . $usu->senha;
 
+                // if($s === $usu->senha){
                 if(password_verify($s, $usu->senha)){
                     echo "Login :)";
                 }else{
@@ -51,17 +52,6 @@
     ?>
 
 
-</body>
-
-</html>
-
-
-
-
-
-
-
-?>
 </body>
 
 </html>
